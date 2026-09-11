@@ -1,0 +1,20 @@
+body{
+    font-family:Arial,sans-serif;
+}
+
+nav{
+    padding:15px;
+    background-color:#222;
+}
+
+nav h2{
+    color:White;
+}
+
+main{
+    padding:20px;
+}
+
+.event{
+    margin-bottom:20px;
+}

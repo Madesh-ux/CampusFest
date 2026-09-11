@@ -1,0 +1,26 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CampusFest</title>
+    <link rel="stylesheet" href="{% static 'events/css/style.css' %}">
+</head>
+
+<body>
+
+    <nav>
+        <h2>CampusFest</h2>
+    </nav>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>CampusFest © 2026</p>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Welcome to {{ fest_name }}</h1>
+
+{% if registration_open %}
+    <p>Registration is open!</p>
+{% else %}
+    <p>Registration is closed.</p>
+{% endif %}
+
+<h2>Events</h2>
+
+{% for event in events %}
+    <div class="event">
+        <h3>
+        <a href="{% url 'event_detail' event.id %}">
+        {{ event.name }}</a>
+        </h3>
+        <p>Category:{{ event.category }}</p>
+        <p>Venue:{{ event.venue }}</p>
+    </div>
+
+{% empty %}
+    <p>No Events Are Available</p>
+{% endfor %}
+
+{% endblock %}

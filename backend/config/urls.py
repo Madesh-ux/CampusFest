@@ -19,9 +19,12 @@ from django.urls import path
 
 from django.conf import settings
 from django.conf.urls.static import static
+from events.views import home,event_detail
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path("",home),
+    path("events/<int:id>",event_detail,name='event_detail'),
 ]
 
 if settings.DEBUG:
