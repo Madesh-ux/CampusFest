@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Student dashboard</h1>
+<p>Welcome, {{ profile.full_name|default:user.username }}.</p>
+{% if profile and profile.phone %}
+    <p>Phone: {{ profile.phone }}</p>
+{% endif %}
+<p><a href="{% url 'home' %}">Browse events</a></p>
+{% endblock %}
