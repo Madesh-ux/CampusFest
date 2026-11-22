@@ -1,365 +1,55 @@
-# \# CampusFest â€“ College Event Management System
+# CampusFest
 
-#
+CampusFest is a college event platform for discovering campus activities, registering for individual and team events, and managing sign-ups.
 
-# CampusFest is a full-stack college event management platform that allows students to explore college events and register for individual and team competitions.
+## Stack
 
-#
+- Frontend: React, Vite, React Router, Axios
+- Backend: Django and Django REST Framework
+- Authentication: JWT
+- Database: MySQL
 
-# The platform is designed for students of our college, providing a centralized way to discover events and manage registrations.
+## Features
 
-#
+- Search and filter active events
+- Event detail pages with individual and team registration
+- Student account registration and login
+- Dashboard with student profile and registration history
+- Team size, membership, and captain validation
 
-# \## Technology Stack
+## Run locally
 
-#
+### Backend
 
-# | Component | Technology |
+1. Create and activate a virtual environment in `backend`.
+2. Install dependencies with `pip install -r requirements.txt`.
+3. Create `backend/.env` with `SECRET_KEY`, `DEBUG=True`, `DB_NAME`, `DB_USER`, and `DB_PASSWORD`.
+4. Create the configured MySQL database, then run `python manage.py migrate`.
+5. Create a Django admin user with `python manage.py createsuperuser` if needed.
+6. Start Django with `python manage.py runserver`.
 
-# |---|---|
+The API runs at `http://127.0.0.1:8000/api/`; the admin is at `http://127.0.0.1:8000/admin/`.
 
-# | Frontend | React.js |
+### Frontend
 
-# | Backend | Python, Django |
+1. In `frontend`, run `npm install`.
+2. Optionally create `frontend/.env` and set `VITE_API_URL=http://127.0.0.1:8000/api`.
+3. Run `npm run dev` and open the Vite URL shown in the terminal.
 
-# | API | Django REST Framework |
+For local development, the backend allows Vite origins at `localhost:5173` and `127.0.0.1:5173`.
 
-# | Database | MySQL |
+## API routes
 
-# | Authentication | JWT |
+| Method | Route | Purpose |
+|---|---|---|
+| POST | `/api/accounts/register/` | Claim a valid student ID and create an account |
+| POST | `/api/accounts/login/` | Log in and receive JWTs |
+| GET | `/api/accounts/profile/` | Get the signed-in student's profile |
+| GET | `/api/accounts/my-registrations/` | Get individual and team registration history |
+| POST | `/api/accounts/token/refresh/` | Refresh an access token |
+| GET | `/api/events/` | List active events; accepts `search` and `category` |
+| GET | `/api/events/<id>/` | Get event details |
+| POST | `/api/events/register/individual/` | Register for an individual event |
+| POST | `/api/events/register/team/` | Register a team |
 
-# | Version Control | Git and GitHub |
-
-# | API Testing | Postman |
-
-#
-
-# \## Features
-
-#
-
-# \### Student Authentication
-
-# \- Student registration using an authorized student ID.
-
-# \- Student login using email and password.
-
-# \- JWT-based authentication.
-
-# \- Protected student profile.
-
-#
-
-# \### Event Management
-
-# \- Browse available college events.
-
-# \- View individual event details.
-
-# \- Search events by name.
-
-# \- Filter events by category.
-
-# \- Support for individual and team events.
-
-#
-
-# \### Event Registration
-
-# \- Register for individual events.
-
-# \- Register teams for team-based events.
-
-# \- Configure minimum and maximum team sizes for each event.
-
-# \- Select a team captain.
-
-# \- Validate student IDs and prevent duplicate registrations.
-
-#
-
-# \### Student Dashboard
-
-# \- View student profile information.
-
-# \- View individual event registrations.
-
-# \- View team event registrations.
-
-#
-
-# \## Project Structure
-
-#
-
-# ```text
-
-# CampusFest/
-
-# â”‚
-
-# â”œâ”€â”€ backend/
-
-# â”‚   â”œâ”€â”€ accounts/
-
-# â”‚   â”œâ”€â”€ events/
-
-# â”‚   â”œâ”€â”€ config/
-
-# â”‚   â”œâ”€â”€ manage.py
-
-# â”‚   â”œâ”€â”€ requirements.txt
-
-# â”‚   â””â”€â”€ .env.example
-
-# â”‚
-
-# â”œâ”€â”€ frontend/
-
-# â”‚
-
-# â”œâ”€â”€ .gitignore
-
-# â””â”€â”€ README.md
-
-# ```
-
-#
-
-# \## Backend Setup
-
-#
-
-# \### 1. Clone the repository
-
-#
-
-# ```bash
-
-# git clone https://github.com/Madesh-ux/CampusFest.git
-
-# cd CampusFest
-
-# ```
-
-#
-
-# \### 2. Navigate to the backend
-
-#
-
-# ```bash
-
-# cd backend
-
-# ```
-
-#
-
-# \### 3. Create a virtual environment
-
-#
-
-# ```bash
-
-# python -m venv .venv
-
-# ```
-
-#
-
-# Activate it on Windows:
-
-#
-
-# ```bash
-
-# .venv\\Scripts\\activate
-
-# ```
-
-#
-
-# \### 4. Install dependencies
-
-#
-
-# ```bash
-
-# pip install -r requirements.txt
-
-# ```
-
-#
-
-# \### 5. Configure environment variables
-
-#
-
-# Copy `.env.example` and create a `.env` file.
-
-#
-
-# On Windows CMD:
-
-#
-
-# ```cmd
-
-# copy .env.example .env
-
-# ```
-
-#
-
-# Update `.env` with your own Django secret key and MySQL credentials.
-
-#
-
-# \*\*Never commit your actual `.env` file to GitHub.\*\*
-
-#
-
-# \### 6. Create the MySQL database
-
-#
-
-# Open MySQL and execute:
-
-#
-
-# ```sql
-
-# CREATE DATABASE campusfest\_db;
-
-# ```
-
-#
-
-# \### 7. Apply migrations
-
-#
-
-# ```bash
-
-# python manage.py migrate
-
-# ```
-
-#
-
-# \### 8. Create an admin account
-
-#
-
-# ```bash
-
-# python manage.py createsuperuser
-
-# ```
-
-#
-
-# \### 9. Start the development server
-
-#
-
-# ```bash
-
-# python manage.py runserver
-
-# ```
-
-#
-
-# Backend server:
-
-#
-
-# ```text
-
-# http://127.0.0.1:8000/
-
-# ```
-
-#
-
-# Django Admin:
-
-#
-
-# ```text
-
-# http://127.0.0.1:8000/admin/
-
-# ```
-
-#
-
-# \## API Endpoints
-
-#
-
-# \### Accounts
-
-#
-
-# | Method | Endpoint | Description |
-
-# |---|---|---|
-
-# | POST | `/api/accounts/register/` | Student registration |
-
-# | POST | `/api/accounts/login/` | Student login |
-
-# | GET | `/api/accounts/profile/` | View student profile |
-
-# | POST | `/api/accounts/token/refresh/` | Refresh JWT token |
-
-# | GET | `/api/accounts/my-registrations/` | View personal registrations |
-
-#
-
-# \### Events
-
-#
-
-# | Method | Endpoint | Description |
-
-# |---|---|---|
-
-# | GET | `/api/events/` | List active events |
-
-# | GET | `/api/events/<id>/` | View event details |
-
-# | POST | `/api/events/register/individual/` | Individual registration |
-
-# | POST | `/api/events/register/team/` | Team registration |
-
-#
-
-# Protected endpoints require JWT authentication.
-
-#
-
-# \## Project Status
-
-#
-
-# Backend development is in progress. Authentication, event listing, individual registration, team registration and student registration history have been implemented and tested.
-
-#
-
-# Frontend integration and further testing are part of the ongoing development.
-
-#
-
-# \## Author
-
-#
-
-# \*\*Madesh S.\*\*
-
-#
-
-# GitHub: https://github.com/Madesh-ux
+Student records must be added by an administrator before students can claim their IDs and sign up.

@@ -171,7 +171,9 @@ class TeamRegistrationView(APIView):
         if students.count() != len(student_ids):
             return Response({"error": "Invalid student IDs"}, status=400)
 
-        captain = students.get(student_id=data['captain_student_id'])
+        captain = students.filter(student_id=data['captain_student_id']).first()
+        if captain is None:
+            return Response({"error": "Captain student ID must be a valid team member"}, status=400)
 
         registered_by = StudentRecord.objects.filter(user=request.user).first()
 
@@ -184,17 +186,18 @@ class TeamRegistrationView(APIView):
         ).exists():
             return Response({"error": "A student is already registered in another team"}, status=400)
 
-        team = Team.objects.create(
-            event=event,
-            team_name=data['team_name'],
-            captain=captain,
-            registered_by=registered_by
-        )
+        with transaction.atomic():
+            team = Team.objects.create(
+                event=event,
+                team_name=data['team_name'],
+                captain=captain,
+                registered_by=registered_by
+            )
 
-        TeamMember.objects.bulk_create([
-            TeamMember(team=team, student=student)
-            for student in students
-        ])
+            TeamMember.objects.bulk_create([
+                TeamMember(team=team, student=student)
+                for student in students
+            ])
 
         return Response(
             {"message": "Team registration successful"},
