@@ -53,3 +53,14 @@ For local development, the backend allows Vite origins at `localhost:5173` and `
 | POST | `/api/events/register/team/` | Register a team |
 
 Student records must be added by an administrator before students can claim their IDs and sign up.
+
+## Screenshots
+
+### Homepage
+![CampusFest Homepage](screenshots/home.png)
+
+### Events
+![CampusFest Events](screenshots/events.png)
+
+### Footer
+![CampusFest Footer](screenshots/footer.png)
