@@ -5,17 +5,19 @@ __pycache__/
 venv/
 .venv/
 
-# Django environment variables
+# Django
+media/
+staticfiles/
+
+# Environment variables and secrets
 .env
+.env.*
+!.env.example
 
 # Node.js
 node_modules/
 frontend/dist/
 frontend/build/
-
-# Environment and secrets
-.env.*
-!.env.example
 
 # IDE
 .vscode/
@@ -23,3 +25,6 @@ frontend/build/
 # Operating system
 .DS_Store
 Thumbs.db
+
+# Local student data
+backend/students.xlsx
